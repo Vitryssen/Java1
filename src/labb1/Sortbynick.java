@@ -12,6 +12,7 @@ import java.util.Comparator;
  * @author André
  */
 public class Sortbynick implements Comparator<Friend>{
+    @Override
     public int compare(Friend a, Friend b){
         return a.getNick().compareTo(b.getNick());
     }

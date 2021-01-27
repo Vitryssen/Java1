@@ -12,7 +12,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ import java.util.List;
  * @author André
  */
 public class FriendsReader {
-    private List<Friend> friends = new ArrayList<Friend>();
+    private List<Friend> friends = new ArrayList<>();
     private String workingPath;
     public FriendsReader(){
         try
@@ -64,6 +63,17 @@ public class FriendsReader {
             System.out.println(friends.get(i).getName());
             System.out.println(friends.get(i).getIp());
             System.out.println(friends.get(i).getImage());
+        }
+    }
+
+    public void GetFriend(String arg) {
+        for(int i = 0; i < friends.size();i++){
+            if(friends.get(i).getNick().equals(arg) ){
+                System.out.println(friends.get(i).getNick()+" "+friends.get(i).getTag());
+                System.out.println(friends.get(i).getName());
+                System.out.println(friends.get(i).getIp());
+                System.out.println(friends.get(i).getImage());
+            }
         }
     }
 }

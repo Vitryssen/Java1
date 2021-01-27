@@ -16,13 +16,23 @@ import java.util.List;
  * @author André
  */
 public class LogReader {
-    private List<String> lines = new ArrayList<String>();
+    private List<String> lines = new ArrayList<>();
     private String workingPath;
     public LogReader(String fileUrl){
         try
         {  
             this.workingPath = System.getProperty("user.dir");
-            File file=new File(this.workingPath+"\\logs\\"+fileUrl+".log");    //creates a new file instance  
+            File file=new File(this.workingPath+"\\logs\\");    //creates a new file instance
+            String[] pathnames = file.list();
+            fileUrl = fileUrl+".log";
+            for(int i = 0; i < pathnames.length;i++){
+                if(pathnames[i].indexOf('[') != -1){
+                    pathnames[i] = pathnames[i].substring(0, pathnames[i].indexOf('['))+pathnames[i].substring(pathnames[i].indexOf(']')+1, pathnames[i].length());
+                }
+                if(fileUrl.equals(pathnames[i])){
+                    file=new File(this.workingPath+"\\logs\\"+pathnames[i]);
+                }
+            }
             FileReader fr=new FileReader(file);   //reads the file  
             BufferedReader br=new BufferedReader(fr);  //creates a buffering character input stream  
             String line; 
@@ -54,7 +64,15 @@ public class LogReader {
     public void GetHistory(){
         Iterator<String> test = this.lines.iterator();
         while(test.hasNext()){
-            System.out.println(test.next());
+            String output = test.next();
+            if(!output.isBlank()){
+                if(output.contains("]")){
+                    System.out.println(test.next()+output);
+                }
+                else{
+                    System.out.println(output);
+                }
+            }
         }
     }
 }

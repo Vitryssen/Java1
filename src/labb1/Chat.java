@@ -5,9 +5,6 @@
  */
 package labb1;
 
-import java.util.Iterator;
-import java.util.List;
-
 /**
  *
  * @author André
@@ -36,8 +33,8 @@ public class Chat {
                 }  //Prints a list of the friends nicknames and real names ordered by nicknames
                 case "-qf" -> { //-qf nickname | display all info about current user or Not found
                     if(!args[1].isEmpty()){
-                        LogReader publicParser = new LogReader(args[1]);
-                        publicParser.GetHistory();
+                        FriendsReader friends = new FriendsReader();
+                        friends.GetFriend(args[1]);
                     }
                     else
                         System.out.println("Missing argument for nickname");
