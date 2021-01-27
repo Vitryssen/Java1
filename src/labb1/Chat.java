@@ -32,11 +32,13 @@ public class Chat {
                 //-ql nickname | display private chat log to given nickname
                 case "-qpl" -> { 
                     if(!args[1].isEmpty()){
-                        PublicReader.getHistory(args[1]);
+                        PublicReader publicParser = new PublicReader(args[1]);
+                        publicParser.GetHistory();
                     }
                     else
                         System.out.println("Not found");
                 }
+                //-qpl <nickname of current user>.log prints the information of the public chat log or "Not found"
                 default -> System.out.println("no match"); //print help message describing the parameters
             } 
         }
