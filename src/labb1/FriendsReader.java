@@ -31,7 +31,7 @@ public class FriendsReader {
             String line; 
             while((line=br.readLine())!=null)  {
                 Friend currentFriend = new Friend();
-                if(line.indexOf('>') != -1){
+                if(line.indexOf('>') != -1){ //Format file text
                     currentFriend.setNick(line.substring(1,line.indexOf('>')));
                     if(line.indexOf(']') != -1){
                         currentFriend.setNick(line.substring(1,line.indexOf('[')));
@@ -44,7 +44,7 @@ public class FriendsReader {
                 currentFriend.setIp(line.substring(line.indexOf(']')+1));
                 line=br.readLine();
                 currentFriend.setImage(line.substring(line.indexOf(']')+1));
-                friends.add(currentFriend);
+                friends.add(currentFriend); //Add friend to friendlist
             }
             Collections.sort(friends, new Sortbynick());
         }
@@ -57,6 +57,7 @@ public class FriendsReader {
             System.out.println(ex);
         }
     }
+    //Print info on all friends
     public void GetFriends(){
         for(int i = 0; i < friends.size(); i++){
             System.out.println(friends.get(i).getNick()+" "+friends.get(i).getTag());
@@ -65,7 +66,7 @@ public class FriendsReader {
             System.out.println(friends.get(i).getImage());
         }
     }
-
+    //Print info on given friend
     public void GetFriend(String arg) {
         for(int i = 0; i < friends.size();i++){
             if(friends.get(i).getNick().equals(arg) ){

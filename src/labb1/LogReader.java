@@ -24,13 +24,14 @@ public class LogReader {
             this.workingPath = System.getProperty("user.dir");
             File file=new File(this.workingPath+"\\logs\\");    //creates a new file instance
             String[] pathnames = file.list();
-            fileUrl = fileUrl+".log";
+            String[] orgs = file.list();
+            fileUrl += ".log";
             for(int i = 0; i < pathnames.length;i++){
-                if(pathnames[i].indexOf('[') != -1){
+                if(pathnames[i].indexOf('[') != -1){ //Formatt all files in dir to remove tags
                     pathnames[i] = pathnames[i].substring(0, pathnames[i].indexOf('['))+pathnames[i].substring(pathnames[i].indexOf(']')+1, pathnames[i].length());
                 }
-                if(fileUrl.equals(pathnames[i])){
-                    file=new File(this.workingPath+"\\logs\\"+pathnames[i]);
+                if(fileUrl.equals(pathnames[i])){ //If formatted filename matches with input, open the unformatted file
+                    file=new File(this.workingPath+"\\logs\\"+orgs[i]);
                 }
             }
             FileReader fr=new FileReader(file);   //reads the file  
@@ -39,7 +40,7 @@ public class LogReader {
             String username;
             while((line=br.readLine())!=null)  {
                 String tag = "";
-                String text = line.substring(line.indexOf('>')+1);
+                String text = line.substring(line.indexOf('>')+1); //Formats input stream
                 if(line.indexOf(']') != -1){
                     username = line.substring(1,line.indexOf('['));
                     tag = line.substring(line.indexOf('['),line.indexOf(']')+1);
@@ -47,7 +48,7 @@ public class LogReader {
                 else{
                     username = line.substring(1, line.indexOf('>'));
                 }
-                this.lines.add(tag);
+                this.lines.add(tag); //Adds each item to the lines list
                 this.lines.add(username);
                 this.lines.add(text);
             }
@@ -62,7 +63,7 @@ public class LogReader {
         }
     }
     public void GetHistory(){
-        Iterator<String> test = this.lines.iterator();
+        Iterator<String> test = this.lines.iterator(); //Print all information about read file
         while(test.hasNext()){
             String output = test.next();
             if(!output.isBlank()){

@@ -32,7 +32,7 @@ public class Chat {
                     friends.GetFriends();
                 }  //Prints a list of the friends nicknames and real names ordered by nicknames
                 case "-qf" -> { //-qf nickname | display all info about current user or Not found
-                    if(!args[1].isEmpty()){
+                    if(args.length >= 2){
                         FriendsReader friends = new FriendsReader();
                         friends.GetFriend(args[1]);
                     }
@@ -40,7 +40,7 @@ public class Chat {
                         System.out.println("Missing argument for nickname");
                 }
                 case "-ql" -> { //-ql nickname | display private chat log or Not found
-                    if(!args[1].isEmpty()){
+                    if(args.length >= 2){
                         LogReader publicParser = new LogReader(args[1]);
                         publicParser.GetHistory();
                     }
