@@ -74,7 +74,9 @@ public class FriendsReader {
                 System.out.println(friends.get(i).getName());
                 System.out.println(friends.get(i).getIp());
                 System.out.println(friends.get(i).getImage());
+                return;
             }
         }
+        System.out.println("Nickname not found");
     }
 }
