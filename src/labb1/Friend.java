@@ -6,8 +6,10 @@
 package labb1;
 
 /**
- *
- * @author André
+ * @author André Nordlund
+ * @date 2021-02-10
+ * @course name Java 2
+ * @Lab number 1
  */
 public class Friend {
     private String nickname;

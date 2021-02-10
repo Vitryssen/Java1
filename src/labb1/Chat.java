@@ -6,8 +6,10 @@
 package labb1;
 
 /**
- *
- * @author André
+ * @author André Nordlund
+ * @date 2021-02-10
+ * @course name Java 2
+ * @Lab number 1
  */
 public class Chat {
 
@@ -16,7 +18,6 @@ public class Chat {
      */
     private static String currentUser = "Eurakarte";
     public static void main(String[] args) {
-        // TODO code application logic here
         try{
             if(args.length == 0){
                 System.out.println("-pf: Prints a list of the friends nicknames and real names ordered by nicknames.");
