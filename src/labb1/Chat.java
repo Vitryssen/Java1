@@ -5,12 +5,11 @@
  */
 package labb1;
 
-import java.util.Iterator;
-import java.util.List;
-
 /**
- *
- * @author André
+ * @author André Nordlund
+ * @date 2021-02-10
+ * @course name Java 2
+ * @Lab number 1
  */
 public class Chat {
 
@@ -19,7 +18,6 @@ public class Chat {
      */
     private static String currentUser = "Eurakarte";
     public static void main(String[] args) {
-        // TODO code application logic here
         try{
             if(args.length == 0){
                 System.out.println("-pf: Prints a list of the friends nicknames and real names ordered by nicknames.");
@@ -35,15 +33,15 @@ public class Chat {
                     friends.GetFriends();
                 }  //Prints a list of the friends nicknames and real names ordered by nicknames
                 case "-qf" -> { //-qf nickname | display all info about current user or Not found
-                    if(!args[1].isEmpty()){
-                        LogReader publicParser = new LogReader(args[1]);
-                        publicParser.GetHistory();
+                    if(args.length >= 2){
+                        FriendsReader friends = new FriendsReader();
+                        friends.GetFriend(args[1]);
                     }
                     else
                         System.out.println("Missing argument for nickname");
                 }
                 case "-ql" -> { //-ql nickname | display private chat log or Not found
-                    if(!args[1].isEmpty()){
+                    if(args.length >= 2){
                         LogReader publicParser = new LogReader(args[1]);
                         publicParser.GetHistory();
                     }

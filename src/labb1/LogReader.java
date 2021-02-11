@@ -12,24 +12,37 @@ import java.util.List;
 
 
 /**
- *
- * @author André
+ * @author André Nordlund
+ * @date 2021-02-10
+ * @course name Java 2
+ * @Lab number 1
  */
 public class LogReader {
-    private List<String> lines = new ArrayList<String>();
+    private List<String> lines = new ArrayList<>();
     private String workingPath;
     public LogReader(String fileUrl){
         try
         {  
             this.workingPath = System.getProperty("user.dir");
-            File file=new File(this.workingPath+"\\logs\\"+fileUrl+".log");    //creates a new file instance  
+            File file=new File(this.workingPath+"\\logs\\");    //creates a new file instance
+            String[] pathnames = file.list();
+            String[] orgs = file.list();
+            fileUrl += ".log";
+            for(int i = 0; i < pathnames.length;i++){
+                if(pathnames[i].indexOf('[') != -1){ //Formatt all files in dir to remove tags
+                    pathnames[i] = pathnames[i].substring(0, pathnames[i].indexOf('['))+pathnames[i].substring(pathnames[i].indexOf(']')+1, pathnames[i].length());
+                }
+                if(fileUrl.equals(pathnames[i])){ //If formatted filename matches with input, open the unformatted file
+                    file=new File(this.workingPath+"\\logs\\"+orgs[i]);
+                }
+            }
             FileReader fr=new FileReader(file);   //reads the file  
             BufferedReader br=new BufferedReader(fr);  //creates a buffering character input stream  
             String line; 
             String username;
             while((line=br.readLine())!=null)  {
                 String tag = "";
-                String text = line.substring(line.indexOf('>')+1);
+                String text = line.substring(line.indexOf('>')+1); //Formats input stream
                 if(line.indexOf(']') != -1){
                     username = line.substring(1,line.indexOf('['));
                     tag = line.substring(line.indexOf('['),line.indexOf(']')+1);
@@ -37,7 +50,7 @@ public class LogReader {
                 else{
                     username = line.substring(1, line.indexOf('>'));
                 }
-                this.lines.add(tag);
+                this.lines.add(tag); //Adds each item to the lines list
                 this.lines.add(username);
                 this.lines.add(text);
             }
@@ -52,9 +65,17 @@ public class LogReader {
         }
     }
     public void GetHistory(){
-        Iterator<String> test = this.lines.iterator();
+        Iterator<String> test = this.lines.iterator(); //Print all information about read file
         while(test.hasNext()){
-            System.out.println(test.next());
+            String output = test.next();
+            if(!output.isBlank()){
+                if(output.contains("]")){
+                    System.out.println(test.next()+output);
+                }
+                else{
+                    System.out.println(output);
+                }
+            }
         }
     }
 }

@@ -12,15 +12,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
- *
- * @author André
+ * @author André Nordlund
+ * @date 2021-02-10
+ * @course name Java 2
+ * @Lab number 1
  */
 public class FriendsReader {
-    private List<Friend> friends = new ArrayList<Friend>();
+    private List<Friend> friends = new ArrayList<>();
     private String workingPath;
     public FriendsReader(){
         try
@@ -32,7 +33,7 @@ public class FriendsReader {
             String line; 
             while((line=br.readLine())!=null)  {
                 Friend currentFriend = new Friend();
-                if(line.indexOf('>') != -1){
+                if(line.indexOf('>') != -1){ //Format file text
                     currentFriend.setNick(line.substring(1,line.indexOf('>')));
                     if(line.indexOf(']') != -1){
                         currentFriend.setNick(line.substring(1,line.indexOf('[')));
@@ -45,7 +46,7 @@ public class FriendsReader {
                 currentFriend.setIp(line.substring(line.indexOf(']')+1));
                 line=br.readLine();
                 currentFriend.setImage(line.substring(line.indexOf(']')+1));
-                friends.add(currentFriend);
+                friends.add(currentFriend); //Add friend to friendlist
             }
             Collections.sort(friends, new Sortbynick());
         }
@@ -58,6 +59,7 @@ public class FriendsReader {
             System.out.println(ex);
         }
     }
+    //Print info on all friends
     public void GetFriends(){
         for(int i = 0; i < friends.size(); i++){
             System.out.println(friends.get(i).getNick()+" "+friends.get(i).getTag());
@@ -65,5 +67,18 @@ public class FriendsReader {
             System.out.println(friends.get(i).getIp());
             System.out.println(friends.get(i).getImage());
         }
+    }
+    //Print info on given friend
+    public void GetFriend(String arg) {
+        for(int i = 0; i < friends.size();i++){
+            if(friends.get(i).getNick().equals(arg) ){
+                System.out.println(friends.get(i).getNick()+" "+friends.get(i).getTag());
+                System.out.println(friends.get(i).getName());
+                System.out.println(friends.get(i).getIp());
+                System.out.println(friends.get(i).getImage());
+                return;
+            }
+        }
+        System.out.println("Nickname not found");
     }
 }
